@@ -1,5 +1,7 @@
 # Crumpet
 
+[![Build Status](https://travis-ci.org/blaknite/crumpet.svg?branch=master)](https://travis-ci.org/blaknite/crumpet)
+
 Simple breadcrumbs for Rails.
 
 ## Installation
