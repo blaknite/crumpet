@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["blaknite@thelanbox.com.au"]
 
   spec.summary       = "Simple breadcrumbs for Rails"
-  spec.homepage      = "http://example.com"
+  spec.homepage      = "https://github.com/blaknite/crumpet"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
