@@ -40,8 +40,8 @@ module Crumble
       Array(options.fetch(:except, []))
     end
 
-    def link_options
-      options.fetch(:link_options, {})
+    def item_options
+      options.fetch(:item_options, {})
     end
 
     def wrapper_options

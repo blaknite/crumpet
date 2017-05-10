@@ -34,11 +34,24 @@ module Crumble
 
     def render_html(crumb)
       name            = render_name(crumb)
-      link_options    = build_link_options(crumb)
+      item_options    = build_html_options(crumb)
       wrapper_options = build_wrapper_options(crumb)
 
-      output = link?(crumb) ? link_to(name, crumb.url, link_options) : content_tag(:span, name, link_options)
+      output = link?(crumb) ? link_to(name, crumb.url, item_options) : content_tag(:span, name, item_options)
       output = content_tag(crumb.wrap_with, output, wrapper_options) if crumb.wrap?
+      output
+    end
+
+    def render_xml(crumb)
+      item_options = build_item_options(crumb)
+      item_options = item_options.merge(href: crumb.url) if link?(crumb)
+
+      content_tag(:crumb, render_name(crumb), item_options))
+    end
+
+    def render_json(crumb)
+      output = build_item_options(crumb).merge(name: render_name(crumb))
+      output = output.merge(href: crumb.url) if link?(crumb)
       output
     end
 
@@ -49,18 +62,26 @@ module Crumble
       name.html_safe
     end
 
-    def build_link_options(crumb)
-      link_options = options.fetch(:link_options, {}).merge(crumb.link_options)
+    def render_container(content)
+      content_tag(option_or_default(:container).to_sym, content, class: option_or_default(:container_class).presence)
+    end
 
-      link_options[:class] = Array(link_options.fetch(:class, []))
-      link_options[:class] << option_or_default(:default_crumb_class).presence
-      link_options[:class] << option_or_default(:first_crumb_class).presence if crumb == repository.first
-      link_options[:class] << option_or_default(:last_crumb_class).presence if crumb == repository.last
-      link_options[:class].compact!
-      link_options[:class].uniq!
-      link_options.delete(:class) if link_options[:class].blank?
+    def build_html_options(crumb)
+      item_options = options.fetch(:item_options, {}).merge(crumb.item_options)
 
-      link_options
+      item_options[:class] = Array(item_options.fetch(:class, []))
+      item_options[:class] << option_or_default(:default_crumb_class).presence
+      item_options[:class] << option_or_default(:first_crumb_class).presence if crumb == repository.first
+      item_options[:class] << option_or_default(:last_crumb_class).presence if crumb == repository.last
+      item_options[:class].compact!
+      item_options[:class].uniq!
+      item_options.delete(:class) if item_options[:class].blank?
+
+      item_options
+    end
+
+    def build_item_options(crumb)
+      options.fetch(:item_options, {}).merge(crumb.item_options)
     end
 
     def build_wrapper_options(crumb)
