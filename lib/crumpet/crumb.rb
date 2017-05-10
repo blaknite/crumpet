@@ -32,14 +32,6 @@ module Crumpet
       option_or_default(:wrap_with)
     end
 
-    def only
-      Array(options.fetch(:only, []))
-    end
-
-    def except
-      Array(options.fetch(:except, []))
-    end
-
     def item_options
       options.fetch(:item_options, {})
     end
