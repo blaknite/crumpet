@@ -28,7 +28,7 @@ module Crumpet
       when :xml
         repository.map{ |crumb| render_xml(crumb) }.join
       when :json
-        repository.map{ |crumb| render_json(crumb) }
+        repository.map{ |crumb| render_json(crumb) }.to_json
       else
         raise NotImplementedError, "unsupported format: #{option_or_default(:format)}"
       end
