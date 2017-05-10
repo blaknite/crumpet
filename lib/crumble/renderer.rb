@@ -10,13 +10,19 @@ module Crumble
     end
 
     def render
-      repository.map{ |crumb| render_crumb(crumb) }.join(option_or_default(:separator)).html_safe
+      output = render_crumbs
+      output = render_container(output) if option_or_default(:container).present?
+      output
     end
 
     private
 
     def repository
       Crumble.repository
+    end
+
+    def render_crumbs
+      repository.map{ |crumb| render_crumb(crumb) }.join(option_or_default(:separator)).html_safe
     end
 
     def render_crumb(crumb)
