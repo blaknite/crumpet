@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe Crumpet::Crumb do
-  let(:crumb) { Crumpet::Crumb.new(name ,url, options) }
+  let(:crumb) { Crumpet::Crumb.new(name, url, options) }
   let(:name) { 'Name' }
   let(:url) { nil }
   let(:options) { {} }
@@ -91,8 +91,8 @@ RSpec.describe Crumpet::Crumb do
       expect(crumb.wrap?).to eq false
     end
 
-    context 'when the wrap_with option is set' do
-      let(:options) { { wrap_with: :li } }
+    context 'when the wrapper option is set' do
+      let(:options) { { wrapper: :li } }
 
       it 'should return true' do
         expect(crumb.wrap?).to eq true
@@ -100,16 +100,16 @@ RSpec.describe Crumpet::Crumb do
     end
   end
 
-  describe '#wrap_with' do
+  describe '#wrapper' do
     it 'should return nil' do
-      expect(crumb.wrap_with).to eq nil
+      expect(crumb.wrapper).to eq nil
     end
 
-    context 'when the wrap_with option is set' do
-      let(:options) { { wrap_with: :li } }
+    context 'when the wrapper option is set' do
+      let(:options) { { wrapper: :li } }
 
       it 'should return :li' do
-        expect(crumb.wrap_with).to eq :li
+        expect(crumb.wrapper).to eq :li
       end
     end
   end

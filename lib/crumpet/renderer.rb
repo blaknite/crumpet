@@ -10,28 +10,26 @@ module Crumpet
     end
 
     def render
-      output = render_crumbs
-      output = render_container(output) if option_or_default(:container).present?
-      output
+      case option_or_default(:format)
+      when :html
+        output = repository.map{ |crumb| render_html(crumb) }.join(option_or_default(:separator)).html_safe
+        output = content_tag(option_or_default(:container).to_sym, output, build_container_options) if option_or_default(:container).present?
+        output
+      when :xml
+        output = repository.map{ |crumb| render_xml(crumb) }.join
+        output = content_tag(:crumbs, output)
+        output
+      when :json
+        repository.map{ |crumb| render_json(crumb) }.to_json
+      else
+        raise NotImplementedError, "unsupported format: #{option_or_default(:format)}"
+      end
     end
 
     private
 
     def repository
       Crumpet.repository
-    end
-
-    def render_crumbs
-      case option_or_default(:format)
-      when :html
-        repository.map{ |crumb| render_html(crumb) }.join(option_or_default(:separator)).html_safe
-      when :xml
-        repository.map{ |crumb| render_xml(crumb) }.join
-      when :json
-        repository.map{ |crumb| render_json(crumb) }.to_json
-      else
-        raise NotImplementedError, "unsupported format: #{option_or_default(:format)}"
-      end
     end
 
     def render_html(crumb)
@@ -65,7 +63,7 @@ module Crumpet
     end
 
     def render_container(content)
-      content_tag(option_or_default(:container).to_sym, content, class: option_or_default(:container_class).presence)
+      content_tag(option_or_default(:container).to_sym, content, build_container_options)
     end
 
     def build_html_options(crumb)
@@ -87,7 +85,27 @@ module Crumpet
     end
 
     def build_wrapper_options(crumb)
-      options.fetch(:wrapper_options, {}).merge(crumb.wrapper_options)
+      wrapper_options = options.fetch(:wrapper_options, {}).merge(crumb.wrapper_options)
+
+      wrapper_options[:class] = Array(wrapper_options.fetch(:class, []))
+      wrapper_options[:class] << option_or_default(:default_wrapper_class).presence
+      wrapper_options[:class].compact!
+      wrapper_options[:class].uniq!
+      wrapper_options.delete(:class) if wrapper_options[:class].blank?
+
+      wrapper_options
+    end
+
+    def build_container_options
+      container_options = options.fetch(:container_options, {})
+
+      container_options[:class] = Array(container_options.fetch(:class, []))
+      container_options[:class] << option_or_default(:default_container_class).presence
+      container_options[:class].compact!
+      container_options[:class].uniq!
+      container_options.delete(:class) if container_options[:class].blank?
+
+      container_options
     end
 
     def link?(crumb)

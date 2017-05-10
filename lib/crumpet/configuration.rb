@@ -10,8 +10,9 @@ module Crumpet
     attr_accessor :truncate
     attr_accessor :escape
     attr_accessor :wrapper
+    attr_accessor :default_wrapper_class
     attr_accessor :container
-    attr_accessor :container_class
+    attr_accessor :default_container_class
 
     def initialize
       @format = :html
@@ -24,8 +25,9 @@ module Crumpet
       @truncate = nil
       @escape = true
       @wrapper = nil
+      @default_wrapper_class = nil
       @container = nil
-      @container_class = nil
+      @default_container_class = nil
     end
   end
 end
