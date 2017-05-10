@@ -1,4 +1,4 @@
-module Crumble
+module Crumpet
   class Crumb
     attr_reader :name, :url, :options
 
@@ -51,7 +51,7 @@ module Crumble
     private
 
     def option_or_default(option)
-      options.fetch(option, Crumble.config.send(option.to_sym).clone)
+      options.fetch(option, Crumpet.config.send(option.to_sym).clone)
     end
   end
 end

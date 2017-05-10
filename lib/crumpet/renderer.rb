@@ -1,4 +1,4 @@
-module Crumble
+module Crumpet
   class Renderer
     include ActionView::Helpers::UrlHelper
     include ERB::Util
@@ -18,7 +18,7 @@ module Crumble
     private
 
     def repository
-      Crumble.repository
+      Crumpet.repository
     end
 
     def render_crumbs
@@ -99,7 +99,7 @@ module Crumble
     end
 
     def option_or_default(option)
-      options.fetch(option, Crumble.config.send(option.to_sym)).clone
+      options.fetch(option, Crumpet.config.send(option.to_sym)).clone
     end
   end
 end

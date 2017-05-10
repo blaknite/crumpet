@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'crumble/version'
+require 'crumpet/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "crumble"
-  spec.version       = Crumble::VERSION
+  spec.name          = "crumpet"
+  spec.version       = Crumpet::VERSION
   spec.authors       = ["Grant Colegate"]
   spec.email         = ["blaknite@thelanbox.com.au"]
 

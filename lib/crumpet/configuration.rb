@@ -1,4 +1,4 @@
-module Crumble
+module Crumpet
   class Configuration
     attr_accessor :format
     attr_accessor :link

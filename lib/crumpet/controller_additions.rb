@@ -1,15 +1,15 @@
-module Crumble
+module Crumpet
   module ControllerAdditions
     def self.included(base)
       base.extend ClassMethods
     end
 
     def add_crumb(name = nil, url = nil, options = {})
-      Crumble.repository.add_crumb(name, url, options)
+      Crumpet.repository.add_crumb(name, url, options)
     end
 
     def clear_crumbs
-      Crumble.repository.clear
+      Crumpet.repository.clear
     end
 
     module ClassMethods
