@@ -21,6 +21,6 @@ module Crumpet
   end
 
   def self.configure
-    yield self
+    yield config
   end
 end
