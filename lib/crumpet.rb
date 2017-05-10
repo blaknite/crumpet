@@ -5,7 +5,7 @@ require 'crumpet/railtie'
 require 'crumpet/renderer'
 require 'crumpet/repository'
 require 'crumpet/version'
-require 'crumpet/View_helpers'
+require 'crumpet/view_helpers'
 
 module Crumpet
   module_function def config
