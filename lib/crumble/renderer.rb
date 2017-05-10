@@ -52,7 +52,7 @@ module Crumble
       item_options = build_item_options(crumb)
       item_options = item_options.merge(href: crumb.url) if link?(crumb)
 
-      content_tag(:crumb, render_name(crumb), item_options))
+      content_tag(:crumb, render_name(crumb), item_options)
     end
 
     def render_json(crumb)
