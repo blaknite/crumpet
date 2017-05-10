@@ -16,7 +16,11 @@ module Crumpet
     @repository ||= Crumpet::Repository.new
   end
 
-  module_function def render(options = {})
+  def self.render(options = {})
     Crumpet::Renderer.new(options).render
+  end
+
+  def self.configure
+    yield self
   end
 end
