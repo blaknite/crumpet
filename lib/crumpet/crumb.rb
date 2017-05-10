@@ -25,11 +25,11 @@ module Crumpet
     end
 
     def wrap?
-      wrap_with.present?
+      wrapper.present?
     end
 
-    def wrap_with
-      option_or_default(:wrap_with)
+    def wrapper
+      option_or_default(:wrapper)
     end
 
     def item_options

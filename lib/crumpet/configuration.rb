@@ -9,7 +9,7 @@ module Crumpet
     attr_accessor :link_last_crumb
     attr_accessor :truncate
     attr_accessor :escape
-    attr_accessor :wrap_with
+    attr_accessor :wrapper
     attr_accessor :container
     attr_accessor :container_class
 
@@ -23,7 +23,7 @@ module Crumpet
       @link_last_crumb = true
       @truncate = nil
       @escape = true
-      @wrap_with = nil
+      @wrapper = nil
       @container = nil
       @container_class = nil
     end

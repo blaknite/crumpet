@@ -40,7 +40,7 @@ module Crumpet
       wrapper_options = build_wrapper_options(crumb)
 
       output = link?(crumb) ? link_to(name, crumb.url, item_options) : content_tag(:span, name, item_options)
-      output = content_tag(crumb.wrap_with, output, wrapper_options) if crumb.wrap?
+      output = content_tag(crumb.wrapper, output, wrapper_options) if crumb.wrap?
       output
     end
 
