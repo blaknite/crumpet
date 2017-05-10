@@ -2,7 +2,7 @@ module Crumpet
   class Crumb
     attr_reader :name, :url, :options
 
-    def initialize(name, url, options = {})
+    def initialize(name, url = nil, options = {})
       @name = name
       @url = url
       @options = options
