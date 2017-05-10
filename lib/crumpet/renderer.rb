@@ -22,17 +22,13 @@ module Crumpet
     end
 
     def render_crumbs
-      repository.map{ |crumb| render_crumb(crumb) }.join(option_or_default(:separator)).html_safe
-    end
-
-    def render_crumb(crumb)
       case option_or_default(:format)
       when :html
-        render_html(crumb)
+        repository.map{ |crumb| render_html(crumb) }.join(option_or_default(:separator)).html_safe
       when :xml
-        render_xml(crumb)
+        repository.map{ |crumb| render_xml(crumb) }.join
       when :json
-        render_json(crumb)
+        repository.map{ |crumb| render_json(crumb) }
       else
         raise NotImplementedError, "unsupported format: #{option_or_default(:format)}"
       end
