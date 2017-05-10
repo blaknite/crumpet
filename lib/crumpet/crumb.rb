@@ -2,10 +2,10 @@ module Crumpet
   class Crumb
     attr_reader :name, :url, :options
 
-    def initialize(name, url = nil, options = {})
+    def initialize(name, *args)
+      @options = args.extract_options!
       @name = name
-      @url = url
-      @options = options
+      @url = args.first
     end
 
     def link?

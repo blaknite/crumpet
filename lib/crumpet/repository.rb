@@ -1,7 +1,7 @@
 module Crumpet
   class Repository < Array
-    def add_crumb(name = nil, url = nil, options = {})
-      self << Crumpet::Crumb.new(name, url, options)
+    def add_crumb(*args)
+      self << Crumpet::Crumb.new(*args)
     end
 
     def <<(crumb)

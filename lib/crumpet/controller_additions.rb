@@ -4,8 +4,8 @@ module Crumpet
       base.extend ClassMethods
     end
 
-    def add_crumb(name = nil, url = nil, options = {})
-      Crumpet.repository.add_crumb(name, url, options)
+    def add_crumb(*args)
+      Crumpet.repository.add_crumb(*args)
     end
 
     def clear_crumbs
