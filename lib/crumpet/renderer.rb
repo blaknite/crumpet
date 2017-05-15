@@ -12,15 +12,15 @@ module Crumpet
     def render
       case option_or_default(:format)
       when :html
-        output = repository.map{ |crumb| render_html(crumb) }.join(option_or_default(:separator)).html_safe
+        output = crumbs.map{ |crumb| render_html(crumb) }.join(option_or_default(:separator)).html_safe
         output = content_tag(option_or_default(:container).to_sym, output, build_container_options) if option_or_default(:container).present?
         output
       when :xml
-        output = repository.map{ |crumb| render_xml(crumb) }.join
+        output = crumbs.map{ |crumb| render_xml(crumb) }.join
         output = content_tag(:crumbs, output)
         output
       when :json
-        repository.map{ |crumb| render_json(crumb) }.to_json
+        crumbs.map{ |crumb| render_json(crumb) }.to_json
       else
         raise NotImplementedError, "unsupported format: #{option_or_default(:format)}"
       end
@@ -28,8 +28,8 @@ module Crumpet
 
     private
 
-    def repository
-      Crumpet.repository
+    def crumbs
+      Crumpet.crumbs
     end
 
     def render_html(crumb)
@@ -38,7 +38,7 @@ module Crumpet
       wrapper_options = build_wrapper_options(crumb)
 
       output = link?(crumb) ? link_to(name, crumb.url, item_options) : content_tag(:span, name, item_options)
-      output = content_tag(crumb.wrapper, output, wrapper_options) if crumb.wrap?
+      output = content_tag(crumb_option_or_default(crumb, :wrapper), output, wrapper_options) if wrap?(crumb)
       output
     end
 
@@ -57,8 +57,8 @@ module Crumpet
 
     def render_name(crumb)
       name = crumb.name
-      name = name.truncate(crumb.truncate) if crumb.truncate?
-      name = h(name) if crumb.escape?
+      name = name.truncate(crumb_option_or_default(crumb, :truncate)) if truncate?(crumb)
+      name = h(name) if escape?(crumb)
       name.html_safe
     end
 
@@ -71,8 +71,8 @@ module Crumpet
 
       item_options[:class] = Array(item_options.fetch(:class, []))
       item_options[:class] << option_or_default(:default_crumb_class).presence
-      item_options[:class] << option_or_default(:first_crumb_class).presence if crumb == repository.first
-      item_options[:class] << option_or_default(:last_crumb_class).presence if crumb == repository.last
+      item_options[:class] << option_or_default(:first_crumb_class).presence if crumb == crumbs.first
+      item_options[:class] << option_or_default(:last_crumb_class).presence if crumb == crumbs.last
       item_options[:class].compact!
       item_options[:class].uniq!
       item_options.delete(:class) if item_options[:class].blank?
@@ -109,11 +109,27 @@ module Crumpet
     end
 
     def link?(crumb)
-      option_or_default(:link) && crumb.link? && ( option_or_default(:link_last_crumb) || crumb != repository.last )
+      crumb.url.present? && ( crumb_option_or_default(crumb, :link) && ( option_or_default(:link_last_crumb) || crumb != crumbs.last ) )
+    end
+
+    def truncate?(crumb)
+      crumb_option_or_default(crumb, :truncate)
+    end
+
+    def wrap?(crumb)
+      crumb_option_or_default(crumb, :wrapper).present?
+    end
+
+    def escape?(crumb)
+      crumb_option_or_default(crumb, :escape).present?
     end
 
     def option_or_default(option)
       options.fetch(option, Crumpet.config.send(option.to_sym)).clone
+    end
+
+    def crumb_option_or_default(crumb, option)
+      crumb.options.fetch(option, option_or_default(option))
     end
   end
 end

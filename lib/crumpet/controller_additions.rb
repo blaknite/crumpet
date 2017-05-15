@@ -5,11 +5,16 @@ module Crumpet
     end
 
     def add_crumb(*args)
-      Crumpet.repository.add_crumb(*args)
+      Crumpet.crumbs.add_crumb(*args)
     end
 
     def clear_crumbs
-      Crumpet.repository.clear
+      Crumpet.crumbs.clear
+    end
+
+    def crumbs(&block)
+      yield if block_given?
+      Crumpet.crumbs
     end
 
     module ClassMethods
@@ -18,11 +23,13 @@ module Crumpet
       end
 
       def crumbs_for(*args, &block)
-        options = {}
-        options[:only] = args if args.present?
-        before_action(options) do |instance|
-          instance.instance_exec(&block) if block_given?
+        if block_given?
+          options = args.present? ? { only: args } : {}
+          before_action(options) do |instance|
+            instance.instance_exec(:crumbs, &block)
+          end
         end
+        Crumpet.crumbs
       end
     end
   end

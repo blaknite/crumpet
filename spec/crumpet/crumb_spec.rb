@@ -6,110 +6,47 @@ RSpec.describe Crumpet::Crumb do
   let(:url) { nil }
   let(:options) { {} }
 
-  describe '#link?' do
-    context 'when no url is provided' do
-      it 'should return false' do
-        expect(crumb.link?).to eq false
-      end
+  describe '#name' do
+    it 'should return the name' do
+      expect(crumb.name).to eq 'Name'
+    end
+  end
 
-      context 'when the link option is true' do
-        it 'should return false' do
-          expect(crumb.link?).to eq false
-        end
-      end
+  describe '#url' do
+    it 'should return the url' do
+      expect(crumb.url).to eq nil
     end
 
     context 'when a url is provided' do
       let(:url) { 'http://example.com/' }
 
-      it 'should return true' do
-        expect(crumb.link?).to eq true
+      it 'should return the url' do
+        expect(crumb.url).to eq 'http://example.com/'
+      end
+    end
+  end
+
+  describe '#options' do
+    it 'should return an empty hash' do
+      expect(crumb.options).to eq({})
+    end
+
+    context 'when the options are provided' do
+      let(:options) { { truncate: false } }
+
+      it 'should return the options' do
+        expect(crumb.options).to eq({ truncate: false })
       end
 
-      context 'when the link option is false' do
-        let(:options) { { link: false } }
+      context 'when item or wrapper options are provided' do
+        let(:options) {
+          { item_options: { class: 'something' }, wrapper_options: { class: 'something' } }
+        }
 
-        it 'should return false' do
-          expect(crumb.link?).to eq false
+        it 'should not include the item or wrapper options' do
+          expect(crumb.options[:item_options]).to eq nil
+          expect(crumb.options[:wrapper_options]).to eq nil
         end
-      end
-    end
-  end
-
-  describe '#escape?' do
-    it 'should return true' do
-      expect(crumb.escape?).to eq true
-    end
-
-    context 'when the escape option is true' do
-      let(:options) { { escape: true } }
-
-      it 'should return true' do
-        expect(crumb.escape?).to eq true
-      end
-    end
-
-    context 'when the escape option is false' do
-      let(:options) { { escape: false } }
-
-      it 'should return false' do
-        expect(crumb.escape?).to eq false
-      end
-    end
-  end
-
-  describe '#truncate?' do
-    it 'should return false' do
-      expect(crumb.truncate?).to eq false
-    end
-
-    context 'when the truncate option is set' do
-      let(:options) { { truncate: 10 } }
-
-      it 'should return true' do
-        expect(crumb.truncate?).to eq true
-      end
-    end
-  end
-
-  describe '#truncate' do
-    it 'should return nil' do
-      expect(crumb.truncate).to eq nil
-    end
-
-    context 'when the truncate option is set' do
-      let(:options) { { truncate: 10 } }
-
-      it 'should return true' do
-        expect(crumb.truncate).to eq 10
-      end
-    end
-  end
-
-  describe '#wrap?' do
-    it 'should return false' do
-      expect(crumb.wrap?).to eq false
-    end
-
-    context 'when the wrapper option is set' do
-      let(:options) { { wrapper: :li } }
-
-      it 'should return true' do
-        expect(crumb.wrap?).to eq true
-      end
-    end
-  end
-
-  describe '#wrapper' do
-    it 'should return nil' do
-      expect(crumb.wrapper).to eq nil
-    end
-
-    context 'when the wrapper option is set' do
-      let(:options) { { wrapper: :li } }
-
-      it 'should return :li' do
-        expect(crumb.wrapper).to eq :li
       end
     end
   end
@@ -123,7 +60,7 @@ RSpec.describe Crumpet::Crumb do
       let(:options) { { item_options: { class: 'something' } } }
 
       it 'should return the options' do
-        expect(crumb.item_options).to eq options[:item_options]
+        expect(crumb.item_options).to eq({ class: 'something' })
       end
     end
   end
@@ -137,7 +74,7 @@ RSpec.describe Crumpet::Crumb do
       let(:options) { { wrapper_options: { class: 'something' } } }
 
       it 'should return the options' do
-        expect(crumb.wrapper_options).to eq options[:wrapper_options]
+        expect(crumb.wrapper_options).to eq({ class: 'something' })
       end
     end
   end

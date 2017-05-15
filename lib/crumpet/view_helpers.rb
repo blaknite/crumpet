@@ -5,7 +5,7 @@ module Crumpet
     end
 
     def crumbs
-      Crumpet.repository
+      Crumpet.crumbs
     end
   end
 end
