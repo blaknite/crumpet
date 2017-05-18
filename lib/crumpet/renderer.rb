@@ -125,7 +125,7 @@ module Crumpet
     end
 
     def option_or_default(option)
-      options.fetch(option, Crumpet.config.send(option.to_sym)).clone
+      options.fetch(option, Crumpet.config.send(option.to_sym))
     end
 
     def crumb_option_or_default(crumb, option)
