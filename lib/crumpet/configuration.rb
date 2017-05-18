@@ -1,6 +1,7 @@
 module Crumpet
   class Configuration
     attr_accessor :format
+    attr_accessor :render_when_blank
     attr_accessor :link
     attr_accessor :separator
     attr_accessor :default_crumb_class
@@ -16,6 +17,7 @@ module Crumpet
 
     def initialize
       @format = :html
+      @render_when_blank = true
       @link = true
       @separator = " &raquo; ".html_safe
       @default_crumb_class = nil

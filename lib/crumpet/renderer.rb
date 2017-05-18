@@ -10,6 +10,8 @@ module Crumpet
     end
 
     def render
+      return '' if crumbs.empty? && !option_or_default(:render_when_blank)
+
       case option_or_default(:format)
       when :html
         output = crumbs.map{ |crumb| render_html(crumb) }.join(option_or_default(:separator)).html_safe

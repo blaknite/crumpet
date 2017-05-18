@@ -34,6 +34,22 @@ RSpec.describe Crumpet::Renderer do
         it 'should return an empty string' do
           expect(render).to eq ''
         end
+
+        context 'when a container is specified' do
+          let(:render_options) { { container: :ul } }
+
+          it 'should return an empty container' do
+            expect(render).to eq '<ul></ul>'
+          end
+
+          context 'when render_when_blank is false' do
+            let(:render_options) { { container: :ul, render_when_blank: false } }
+
+            it 'should return an empty string' do
+              expect(render).to eq ''
+            end
+          end
+        end
       end
 
       context 'when there is one crumb' do
