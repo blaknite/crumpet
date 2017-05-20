@@ -71,7 +71,7 @@ module Crumpet
     def build_html_options(crumb)
       item_options = options.fetch(:item_options, {}).merge(crumb.item_options)
 
-      item_options[:class] = Array(item_options.fetch(:class, []))
+      item_options[:class] = Array(item_options[:class])
       item_options[:class] << option_or_default(:default_crumb_class).presence
       item_options[:class] << option_or_default(:first_crumb_class).presence if crumb == crumbs.first
       item_options[:class] << option_or_default(:last_crumb_class).presence if crumb == crumbs.last
@@ -89,7 +89,7 @@ module Crumpet
     def build_wrapper_options(crumb)
       wrapper_options = options.fetch(:wrapper_options, {}).merge(crumb.wrapper_options)
 
-      wrapper_options[:class] = Array(wrapper_options.fetch(:class, []))
+      wrapper_options[:class] = Array(wrapper_options[:class])
       wrapper_options[:class] << option_or_default(:default_wrapper_class).presence
       wrapper_options[:class].compact!
       wrapper_options[:class].uniq!
@@ -101,7 +101,7 @@ module Crumpet
     def build_container_options
       container_options = options.fetch(:container_options, {})
 
-      container_options[:class] = Array(container_options.fetch(:class, []))
+      container_options[:class] = Array(container_options[:class])
       container_options[:class] << option_or_default(:default_container_class).presence
       container_options[:class].compact!
       container_options[:class].uniq!
