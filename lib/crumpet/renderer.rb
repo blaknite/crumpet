@@ -3,9 +3,14 @@ module Crumpet
     include ActionView::Helpers::UrlHelper
     include ERB::Util
 
-    attr_reader :options
+    attr_reader :crumbs, :options
 
-    def initialize(options = {})
+    def self.render(crumbs, options = {})
+      new(crumbs, options).render
+    end
+
+    def initialize(crumbs, options = {})
+      @crumbs  = crumbs
       @options = options
     end
 
@@ -29,10 +34,6 @@ module Crumpet
     end
 
     private
-
-    def crumbs
-      Crumpet.crumbs
-    end
 
     def render_html(crumb)
       name            = render_name(crumb)

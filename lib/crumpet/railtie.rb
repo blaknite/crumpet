@@ -4,8 +4,6 @@ module Crumpet
       ActiveSupport.on_load :action_controller do
         self.class_eval do
           include Crumpet::ControllerAdditions
-
-          before_action :clear_crumbs
         end
       end
     end

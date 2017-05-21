@@ -12,14 +12,6 @@ module Crumpet
     @config ||= Crumpet::Configuration.new
   end
 
-  module_function def crumbs
-    @crumbs ||= Crumpet::Repository.new
-  end
-
-  def self.render(options = {})
-    Crumpet::Renderer.new(options).render
-  end
-
   def self.configure
     yield config
   end

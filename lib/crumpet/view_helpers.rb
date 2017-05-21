@@ -1,11 +1,11 @@
 module Crumpet
   module ViewHelpers
     def render_crumbs(options = {})
-      Crumpet.render(options)
+      crumbs.render(options)
     end
 
     def crumbs
-      Crumpet.crumbs
+      @_crumbs ||= Crumpet::Repository.new
     end
   end
 end

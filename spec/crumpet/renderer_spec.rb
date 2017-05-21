@@ -1,7 +1,8 @@
 require "spec_helper"
 
 RSpec.describe Crumpet::Renderer do
-  let(:render) { Crumpet::Renderer.new(render_options).render }
+  let(:repository) { Crumpet::Repository.new }
+  let(:render) { Crumpet::Renderer.new(repository, render_options).render }
   let(:render_options) { {} }
   let(:crumbs) { [] }
   let(:crumb1) { Crumpet::Crumb.new(name1, url1, options1) }
@@ -14,9 +15,8 @@ RSpec.describe Crumpet::Renderer do
   let(:options2) { {} }
 
   before do
-    Crumpet.crumbs.clear
     crumbs.each do |crumb|
-      Crumpet.crumbs << crumb
+      repository << crumb
     end
   end
 

@@ -1,5 +1,9 @@
 module Crumpet
   class Repository < Array
+    def render(options = {})
+      Crumpet::Renderer.render(self, options)
+    end
+
     def add_crumb(*args)
       self << Crumpet::Crumb.new(*args)
     end
