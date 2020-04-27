@@ -39,6 +39,12 @@ class WidgetsController < ApplicationController
 end
 ```
 
+Then in the view:
+
+```
+<%= render_crumbs %>
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run
