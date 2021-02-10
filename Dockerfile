@@ -14,5 +14,4 @@ RUN gem install bundler
 RUN bundle install
 
 RUN apk del -r --purge --no-cache \
-      git \
       build-base
