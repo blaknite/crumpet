@@ -1,6 +1,6 @@
 # Crumpet
 
-[![Build Status](https://travis-ci.org/blaknite/crumpet.svg?branch=master)](https://travis-ci.org/blaknite/crumpet)
+[![Build status](https://badge.buildkite.com/314584d2128067c80fbd082008710c9f57e426c0eb7ec9333c.svg)](https://buildkite.com/blaknite/crumpet)
 
 Simple breadcrumbs for Rails.
 
